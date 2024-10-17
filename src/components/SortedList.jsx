@@ -1,6 +1,17 @@
+import { useCallback } from 'react';
+
 import { List, ListItemButton, Paper, Stack, TextField, Typography } from '@mui/material';
 
-const SortedList = ({ items = [], label, placeholder }) => {
+const SortedList = ({ items = [], label, onClick, placeholder }) => {
+  const onClickHandler = useCallback(
+    (e, value) => {
+      if (onClick) {
+        onClick(e, value);
+      }
+    },
+    [onClick]
+  );
+
   return (
     <Paper>
       <Stack spacing={1}>
@@ -18,7 +29,12 @@ const SortedList = ({ items = [], label, placeholder }) => {
         />
         <List sx={{ height: '150px', overflowY: 'scroll' }}>
           {items.map((item) => (
-            <ListItemButton key={item}>{item}</ListItemButton>
+            <ListItemButton
+              key={item}
+              onClick={(e) => onClickHandler(e, item)}
+            >
+              {item}
+            </ListItemButton>
           ))}
         </List>
       </Stack>
