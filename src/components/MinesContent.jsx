@@ -1,18 +1,6 @@
-import { Button, Grid2 as Grid, Stack, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 
-import SortedList from './SortedList';
-
-const mockedCompanies = [
-  'Company1',
-  'Company2',
-  'Company3',
-  'Company4',
-  'Company5',
-  'Company6',
-  'Company7',
-];
-
-const mockedSelectedCompanies = ['BHP', 'Anglo American', 'Company2', 'Company6'];
+import MinesForm from './MinesForm';
 
 const MinesContent = () => {
   return (
@@ -32,35 +20,7 @@ const MinesContent = () => {
         <Typography>Then click &quotSave&quot to apply your changes.</Typography>
         <Typography>Use search fields to easily find a required Mine.</Typography>
       </Stack>
-      <div>
-        <Grid
-          container
-          spacing={5}
-        >
-          <Grid size={4}>
-            <SortedList
-              items={mockedCompanies}
-              label="Available Mines"
-              placeholder="Type Name"
-            />
-          </Grid>
-          <Grid size={4}>
-            <SortedList
-              items={mockedSelectedCompanies}
-              label="Selected Mines"
-              placeholder="Type Name"
-            />
-          </Grid>
-        </Grid>
-        <Stack
-          alignItems="center"
-          direction="row"
-          justifyContent="end"
-          py={2}
-        >
-          <Button variant="contained">Save</Button>
-        </Stack>
-      </div>
+      <MinesForm />
     </div>
   );
 };
