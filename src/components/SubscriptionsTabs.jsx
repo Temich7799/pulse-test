@@ -1,4 +1,4 @@
-import { Box, Tab, Tabs } from '@mui/material';
+import { Box, Paper, Tab, Tabs } from '@mui/material';
 
 import useTabs, { TabConsumer } from '../hooks/useTabs';
 import CompaniesContent from './CompaniesContent';
@@ -8,7 +8,7 @@ const SubscriptionsTabs = () => {
   const { handleChangeTab, value } = useTabs();
 
   return (
-    <>
+    <Paper>
       <Tabs
         aria-label="subscriptions-tabs"
         value={value}
@@ -17,7 +17,7 @@ const SubscriptionsTabs = () => {
         <Tab label="Companies" />
         <Tab label="Mines" />
       </Tabs>
-      <Box p={3}>
+      <Box sx={{ maxWidth: 'md', p: 3 }}>
         <TabConsumer value={0}>
           <CompaniesContent />
         </TabConsumer>
@@ -25,7 +25,7 @@ const SubscriptionsTabs = () => {
           <MinesContent />
         </TabConsumer>
       </Box>
-    </>
+    </Paper>
   );
 };
 

@@ -32,30 +32,35 @@ const CompaniesContent = () => {
         <Typography>Then click &quotSave&quot to apply your changes.</Typography>
         <Typography>Use search fields to easily find a required Company.</Typography>
       </Stack>
-      <Grid
-        container
-        spacing={5}
-      >
-        <Grid size={5}>
-          <SortedList
-            items={mockedCompanies}
-            label="Available Companies"
-          />
+      <div>
+        <Grid
+          container
+          spacing={5}
+        >
+          <Grid size={4}>
+            <SortedList
+              items={mockedCompanies}
+              label="Available Companies"
+              placeholder="Type Name"
+            />
+          </Grid>
+          <Grid size={4}>
+            <SortedList
+              items={mockedSelectedCompanies}
+              label="Selected Companies"
+              placeholder="Type Name"
+            />
+          </Grid>
         </Grid>
-        <Grid size={5}>
-          <SortedList
-            items={mockedSelectedCompanies}
-            label="Selected Companies"
-          />
-        </Grid>
-      </Grid>
-      <Stack
-        alignItems="center"
-        direction="row"
-        justifyContent="end"
-      >
-        <Button variant="contained">Save</Button>
-      </Stack>
+        <Stack
+          alignItems="center"
+          direction="row"
+          justifyContent="end"
+          py={2}
+        >
+          <Button variant="contained">Save</Button>
+        </Stack>
+      </div>
     </div>
   );
 };
