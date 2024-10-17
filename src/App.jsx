@@ -1,5 +1,7 @@
+import SubscriptionsPage from './pages/SubscriptionsPage';
+
 const App = () => {
-  return <></>;
+  return <SubscriptionsPage />;
 };
 
 export default App;
