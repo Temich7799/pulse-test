@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 
 import { List, ListItemButton, Paper, Stack, TextField, Typography } from '@mui/material';
 
-const SortedList = ({ items = [], label, onClick, placeholder }) => {
+const SortedList = ({ items = [], onClick, placeholder }) => {
   const [search, setSearch] = useState('');
 
   const onClickHandler = useCallback(
@@ -22,6 +22,30 @@ const SortedList = ({ items = [], label, onClick, placeholder }) => {
   }, []);
 
   return (
+    <>
+      <TextField
+        fullWidth
+        label={placeholder}
+        value={search}
+        variant="outlined"
+        onChange={handleSearch}
+      />
+      <List sx={{ height: '150px', overflowY: 'scroll' }}>
+        {filteredItems.map((item) => (
+          <ListItemButton
+            key={item.id}
+            onClick={(e) => onClickHandler(e, item)}
+          >
+            {item.name}
+          </ListItemButton>
+        ))}
+      </List>
+    </>
+  );
+};
+
+const WrappedSortedList = ({ items = [], label, onClick, placeholder }) => {
+  return (
     <Paper>
       <Stack spacing={1}>
         <Typography
@@ -31,26 +55,14 @@ const SortedList = ({ items = [], label, onClick, placeholder }) => {
         >
           {label}
         </Typography>
-        <TextField
-          fullWidth
-          label={placeholder}
-          value={search}
-          variant="outlined"
-          onChange={handleSearch}
+        <SortedList
+          items={items}
+          placeholder={placeholder}
+          onClick={onClick}
         />
-        <List sx={{ height: '150px', overflowY: 'scroll' }}>
-          {filteredItems.map((item) => (
-            <ListItemButton
-              key={item.id}
-              onClick={(e) => onClickHandler(e, item)}
-            >
-              {item.name}
-            </ListItemButton>
-          ))}
-        </List>
       </Stack>
     </Paper>
   );
 };
 
-export default SortedList;
+export default WrappedSortedList;
