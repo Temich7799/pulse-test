@@ -2,12 +2,12 @@
 
 const config = {
   endOfLine: 'lf',
+  printWidth: 100,
   semi: true,
+  singleAttributePerLine: true,
   singleQuote: true,
   tabWidth: 2,
   trailingComma: 'es5',
-  printWidth: 100,
-  singleAttributePerLine: true,
 };
 
 export default config;

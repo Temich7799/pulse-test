@@ -18,8 +18,8 @@ const MinesContent = () => {
   return (
     <div>
       <Stack
-        spacing={2}
         mb={3}
+        spacing={2}
       >
         <Typography
           component="h2"
@@ -38,20 +38,20 @@ const MinesContent = () => {
       >
         <Grid size={5}>
           <SortedList
-            label="Available Mines"
             items={mockedCompanies}
+            label="Available Mines"
           />
         </Grid>
         <Grid size={5}>
           <SortedList
-            label="Selected Mines"
             items={mockedSelectedCompanies}
+            label="Selected Mines"
           />
         </Grid>
       </Grid>
       <Stack
-        direction="row"
         alignItems="center"
+        direction="row"
         justifyContent="end"
       >
         <Button variant="contained">Save</Button>

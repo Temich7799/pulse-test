@@ -1,11 +1,11 @@
 import { List, ListItem, TextField } from '@mui/material';
 
-const SortedList = ({ label, items = [] }) => {
+const SortedList = ({ items = [], label }) => {
   return (
     <>
       <TextField
-        label={label}
         fullWidth
+        label={label}
         variant="outlined"
       />
       <List>

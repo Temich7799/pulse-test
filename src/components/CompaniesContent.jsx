@@ -18,8 +18,8 @@ const CompaniesContent = () => {
   return (
     <div>
       <Stack
-        spacing={2}
         mb={3}
+        spacing={2}
       >
         <Typography
           component="h2"
@@ -38,20 +38,20 @@ const CompaniesContent = () => {
       >
         <Grid size={5}>
           <SortedList
-            label="Available Companies"
             items={mockedCompanies}
+            label="Available Companies"
           />
         </Grid>
         <Grid size={5}>
           <SortedList
-            label="Selected Companies"
             items={mockedSelectedCompanies}
+            label="Selected Companies"
           />
         </Grid>
       </Grid>
       <Stack
-        direction="row"
         alignItems="center"
+        direction="row"
         justifyContent="end"
       >
         <Button variant="contained">Save</Button>

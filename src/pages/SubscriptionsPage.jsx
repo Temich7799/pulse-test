@@ -8,8 +8,8 @@ const SubscriptionsPage = () => {
     <Container>
       <Typography
         component="h1"
-        variant="h3"
         my={3}
+        variant="h3"
       >
         Your Subscriptions
       </Typography>

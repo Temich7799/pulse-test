@@ -5,14 +5,14 @@ import CompaniesContent from './CompaniesContent';
 import MinesContent from './MinesContent';
 
 const SubscriptionsTabs = () => {
-  const { value, handleChangeTab } = useTabs();
+  const { handleChangeTab, value } = useTabs();
 
   return (
     <>
       <Tabs
+        aria-label="subscriptions-tabs"
         value={value}
         onChange={handleChangeTab}
-        aria-label="subscriptions-tabs"
       >
         <Tab label="Companies" />
         <Tab label="Mines" />

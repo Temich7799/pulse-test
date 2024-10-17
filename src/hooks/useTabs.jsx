@@ -10,21 +10,21 @@ export const TabsProvider = ({ children }) => {
   }, []);
 
   return (
-    <TabsContext.Provider value={{ value: selectedTab, handleChangeTab }}>
+    <TabsContext.Provider value={{ handleChangeTab, value: selectedTab }}>
       {children}
     </TabsContext.Provider>
   );
 };
 
-export const TabConsumer = ({ value, children, ...other }) => {
+export const TabConsumer = ({ children, value, ...other }) => {
   const { value: selectedTab } = useTabs();
 
   return (
     <div
-      role="tabpanel"
+      aria-labelledby={`tab-${selectedTab}`}
       hidden={value !== selectedTab}
       id={`tabpanel-${selectedTab}`}
-      aria-labelledby={`tab-${selectedTab}`}
+      role="tabpanel"
       {...other}
     >
       {value === selectedTab && children}

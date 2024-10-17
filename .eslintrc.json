@@ -86,6 +86,16 @@
       "import/first": "error",
       "import/no-duplicates": "error",
       "react/display-name": "off",
-      "react/jsx-curly-brace-presence": ["error", { "props": "never", "children": "never" }]
+      "react/jsx-curly-brace-presence": ["error", { "props": "never", "children": "never" }],
+      "perfectionist/sort-objects": "error",
+      "perfectionist/sort-jsx-props": [
+        "error",
+        {
+          "groups": ["shorthand", "multiline", "unknown", "callback"],
+          "customGroups": {
+            "callback": "on*"
+          }
+        }
+      ]
     }
 }
