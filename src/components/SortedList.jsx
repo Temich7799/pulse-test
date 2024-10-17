@@ -6,16 +6,16 @@ const SortedList = ({ items = [], label, onClick, placeholder }) => {
   const [search, setSearch] = useState('');
 
   const onClickHandler = useCallback(
-    (e, value) => {
+    (e, item) => {
       if (onClick) {
-        onClick(e, value);
+        onClick(e, item);
       }
     },
     [onClick]
   );
 
   const regex = new RegExp(search, 'i');
-  const filteredItems = items.filter((item) => regex.test(item));
+  const filteredItems = items.filter(({ name }) => regex.test(name));
 
   const handleSearch = useCallback((e) => {
     setSearch(e.target.value);
@@ -41,10 +41,10 @@ const SortedList = ({ items = [], label, onClick, placeholder }) => {
         <List sx={{ height: '150px', overflowY: 'scroll' }}>
           {filteredItems.map((item) => (
             <ListItemButton
-              key={item}
+              key={item.id}
               onClick={(e) => onClickHandler(e, item)}
             >
-              {item}
+              {item.name}
             </ListItemButton>
           ))}
         </List>

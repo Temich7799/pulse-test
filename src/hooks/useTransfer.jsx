@@ -1,12 +1,12 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 const excludeItem = (items, value) => {
   return items.filter((item) => item !== value);
 };
 
-const useTransfer = ({ itemsLeft: leftItemsInitial = [], itemsRight: rightItemsInitial = [] }) => {
-  const [leftItems, setLeftItems] = useState(leftItemsInitial);
-  const [rightItems, setRightItems] = useState(rightItemsInitial);
+const useTransfer = ({ itemsLeft: leftItemsInitial, itemsRight: rightItemsInitial }) => {
+  const [leftItems, setLeftItems] = useState([]);
+  const [rightItems, setRightItems] = useState([]);
 
   const handleTransfer = useCallback((leftItems, rightItems) => {
     setLeftItems(leftItems);
@@ -30,6 +30,14 @@ const useTransfer = ({ itemsLeft: leftItemsInitial = [], itemsRight: rightItemsI
     },
     [handleTransfer, rightItems, leftItems]
   );
+
+  useEffect(() => {
+    leftItemsInitial && setLeftItems(leftItemsInitial);
+  }, [leftItemsInitial]);
+
+  useEffect(() => {
+    rightItemsInitial && setRightItems(rightItemsInitial);
+  }, [rightItemsInitial]);
 
   return {
     leftItems,

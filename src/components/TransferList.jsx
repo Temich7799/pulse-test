@@ -19,15 +19,15 @@ const TransferList = ({
   });
 
   const handleMoveRight = useCallback(
-    (e, value) => {
-      moveRight(value);
+    (e, item) => {
+      moveRight(item);
     },
     [moveRight]
   );
 
   const handleMoveLeft = useCallback(
-    (e, value) => {
-      moveLeft(value);
+    (e, item) => {
+      moveLeft(item);
     },
     [moveLeft]
   );

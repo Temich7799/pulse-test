@@ -1,32 +1,35 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { Button, Stack } from '@mui/material';
 
+import { getCompanies, getSubscribedCompanies } from '../api/companies';
 import TransferList from './TransferList';
 
-const mockedCompanies = [
-  'Company1',
-  'Company2',
-  'Company3',
-  'Company4',
-  'Company5',
-  'Company6',
-  'Company7',
-];
-
 const CompaniesForm = () => {
-  const [data, setData] = useState([]);
+  const { current } = useRef({});
 
-  const handleChange = useCallback((value) => {
-    setData(value);
+  const [items, setItems] = useState([]);
+  const [selectedInitial, setSelectedInitial] = useState([]);
+
+  const handleChange = useCallback(
+    (values) => {
+      current.values = values;
+    },
+    [current]
+  );
+
+  useEffect(() => {
+    getCompanies().then(setItems);
+    getSubscribedCompanies().then(setSelectedInitial);
   }, []);
 
   return (
     <form>
       <TransferList
-        items={mockedCompanies}
+        items={items}
         leftLabel="Available Companies"
         rightLabel="Selected Companies"
+        selectedInitial={selectedInitial}
         onRightChange={handleChange}
       />
       <Stack
