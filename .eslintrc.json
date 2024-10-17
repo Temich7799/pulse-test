@@ -1,0 +1,90 @@
+{
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:react/jsx-runtime",
+      "plugin:react-hooks/recommended",
+      "plugin:import/recommended",
+      "plugin:prettier/recommended"
+    ],
+    "plugins": ["simple-import-sort", "import", "perfectionist"],
+    "overrides": [
+      {
+        "files": ["*.js", "*.jsx"],
+        "rules": {
+          "no-console": "off",
+          "simple-import-sort/imports": [
+            "error",
+            {
+              "groups": [
+                ["^react"],
+                ["^(@mui)"],
+                ["^(@|components)(/.*|$)"],
+                ["^@?\\w"],
+                ["^\\u0000"],
+                [
+                  "^\\.\\.(?!/?$)",
+                  "^\\.\\./?$",
+                  "^\\./(?=.*/)(?!/?$)",
+                  "^\\.(?!/?$)",
+                  "^\\./?$",
+                  "^src"
+                ],
+                ["^.+\\.?(css)$"]
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      },
+      "import/resolver": {
+        "node": {
+          "paths": ["."],
+          "extensions": [".js", ".jsx"]
+        }
+      }
+    },
+    "parserOptions": {
+      "parser": "@babel/eslint-parser",
+      "sourceType": "module",
+      "ecmaVersion": "latest",
+      "ecmaFeatures": {
+        "jsx": true,
+        "experimentalObjectRestSpread": true
+      },
+      "requireConfigFile": false
+    },
+    "rules": {
+      "no-console": ["error", { "allow": ["warn", "error"] }],
+      "no-restricted-syntax": [
+        "error",
+        {
+          "selector": "CallExpression[callee.object.name='console'][callee.property.name='log']",
+          "message": "Unexpected property on console object was called"
+        }
+      ],
+      "react/jsx-max-props-per-line": [
+        "error",
+        {
+          "maximum": 1
+        }
+      ],
+      "import/newline-after-import": "error",
+      "jsx-a11y/alt-text": "off",
+      "no-unused-vars": "error",
+      "simple-import-sort/imports": "error",
+      "simple-import-sort/exports": "error",
+      "import/first": "error",
+      "import/no-duplicates": "error",
+      "react/display-name": "off",
+      "react/jsx-curly-brace-presence": ["error", { "props": "never", "children": "never" }]
+    }
+}
