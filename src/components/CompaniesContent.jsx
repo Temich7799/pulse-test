@@ -17,7 +17,7 @@ const CompaniesContent = () => {
         </Typography>
         <Typography>To follow a Company, select it in the left panel and click &rarr;.</Typography>
         <Typography>To unfollow a Company, select it in the right panel and click +.</Typography>
-        <Typography>Then click &quotSave&quot to apply your changes.</Typography>
+        <Typography>Then click "Save" to apply your changes.</Typography>
         <Typography>Use search fields to easily find a required Company.</Typography>
       </Stack>
       <CompaniesForm />
