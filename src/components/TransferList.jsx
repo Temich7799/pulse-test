@@ -1,6 +1,8 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
-import { Grid2 as Grid } from '@mui/material';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import { Grid2 as Grid, IconButton, Stack } from '@mui/material';
 
 import useTransfer from '../hooks/useTransfer';
 import SortedList from './SortedList';
@@ -18,19 +20,25 @@ const TransferList = ({
     itemsRight: selectedInitial,
   });
 
-  const handleMoveRight = useCallback(
-    (e, item) => {
-      moveRight(item);
-    },
-    [moveRight]
-  );
+  const { current } = useRef({ selectedLeft: null, selectedRight: null });
 
-  const handleMoveLeft = useCallback(
-    (e, item) => {
-      moveLeft(item);
-    },
-    [moveLeft]
-  );
+  const selectRight = (e, item) => {
+    current.selectedRight = item;
+  };
+
+  const selectLeft = (e, item) => {
+    current.selectedLeft = item;
+  };
+
+  const handleMoveLeft = useCallback(() => {
+    current.selectedRight && moveLeft(current.selectedRight);
+    current.selectedRight = null;
+  }, [moveLeft, current]);
+
+  const handleMoveRight = useCallback(() => {
+    current.selectedLeft && moveRight(current.selectedLeft);
+    current.selectedLeft = null;
+  }, [moveRight, current]);
 
   useEffect(() => {
     leftItems.length && onLeftChange && onLeftChange(leftItems);
@@ -40,22 +48,41 @@ const TransferList = ({
   return (
     <Grid
       container
-      spacing={5}
+      spacing={3}
     >
       <Grid size={4}>
         <SortedList
           items={leftItems}
           label={leftLabel}
           placeholder="Type Name"
-          onClick={handleMoveRight}
+          onClick={selectLeft}
         />
+      </Grid>
+      <Grid size={2}>
+        <Stack
+          justifyContent="center"
+          sx={{ height: '100%' }}
+        >
+          <IconButton
+            color="primary"
+            onClick={handleMoveLeft}
+          >
+            <ArrowCircleLeftIcon fontSize="large" />
+          </IconButton>
+          <IconButton
+            color="primary"
+            onClick={handleMoveRight}
+          >
+            <ArrowCircleRightIcon fontSize="large" />
+          </IconButton>
+        </Stack>
       </Grid>
       <Grid size={4}>
         <SortedList
           items={rightItems}
           label={rightLabel}
           placeholder="Type Name"
-          onClick={handleMoveLeft}
+          onClick={selectRight}
         />
       </Grid>
     </Grid>
