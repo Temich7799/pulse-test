@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Button, Stack } from '@mui/material';
 
 import { getCompanies, getSubscribedCompanies } from '../api/companies';
+import { subtractArrays } from '../utils';
 import TransferList from './TransferList';
 
 const CompaniesForm = () => {
@@ -19,8 +20,13 @@ const CompaniesForm = () => {
   );
 
   useEffect(() => {
-    getCompanies().then(setItems);
-    getSubscribedCompanies().then(setSelectedInitial);
+    Promise.all([getCompanies(), getSubscribedCompanies()]).then(
+      ([companies, subscribedCompanies]) => {
+        const filteredCompanies = subtractArrays(companies, subscribedCompanies, 'id');
+        setItems(filteredCompanies);
+        setSelectedInitial(subscribedCompanies);
+      }
+    );
   }, []);
 
   return (
