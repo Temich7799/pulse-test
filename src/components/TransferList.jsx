@@ -92,9 +92,9 @@ const TransferList = ({
   return (
     <Grid
       container
-      spacing={3}
+      spacing={2}
     >
-      <Grid size={4}>
+      <Grid size={{ md: 4, sm: 5, xs: 12 }}>
         <SortedList
           items={leftItems}
           label={leftLabel}
@@ -104,8 +104,9 @@ const TransferList = ({
           onMultipleClick={multipleSelectLeft}
         />
       </Grid>
-      <Grid size={2}>
+      <Grid size={{ sm: 1.5, xs: 12 }}>
         <Stack
+          direction={{ sm: 'column', xs: 'row' }}
           justifyContent="center"
           sx={{ height: '100%' }}
         >
@@ -113,17 +114,23 @@ const TransferList = ({
             color="primary"
             onClick={handleMoveLeft}
           >
-            <ArrowCircleLeftIcon fontSize="large" />
+            <ArrowCircleLeftIcon
+              fontSize="large"
+              sx={{ transform: { sm: 'none', xs: 'rotate(90deg)' } }}
+            />
           </IconButton>
           <IconButton
             color="primary"
             onClick={handleMoveRight}
           >
-            <ArrowCircleRightIcon fontSize="large" />
+            <ArrowCircleRightIcon
+              fontSize="large"
+              sx={{ transform: { sm: 'none', xs: 'rotate(90deg)' } }}
+            />
           </IconButton>
         </Stack>
       </Grid>
-      <Grid size={4}>
+      <Grid size={{ md: 4, sm: 5, xs: 12 }}>
         <SortedList
           items={rightItems}
           label={rightLabel}
