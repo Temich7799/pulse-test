@@ -1,27 +1,11 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-
 import { Button, Stack } from '@mui/material';
 
 import { getMines, getSubscribedMines } from '../api/mines';
+import useForm from '../hooks/useForm';
 import TransferList from './TransferList';
 
 const MinesForm = () => {
-  const { current } = useRef({});
-
-  const [items, setItems] = useState([]);
-  const [selectedInitial, setSelectedInitial] = useState([]);
-
-  const handleChange = useCallback(
-    (values) => {
-      current.values = values;
-    },
-    [current]
-  );
-
-  useEffect(() => {
-    getMines().then(setItems);
-    getSubscribedMines().then(setSelectedInitial);
-  }, []);
+  const { handleChange, items, subscribedItems } = useForm(getMines, getSubscribedMines);
 
   return (
     <form>
@@ -29,7 +13,7 @@ const MinesForm = () => {
         items={items}
         leftLabel="Available Mines"
         rightLabel="Selected Mines"
-        selectedInitial={selectedInitial}
+        selectedInitial={subscribedItems}
         onRightChange={handleChange}
       />
       <Stack

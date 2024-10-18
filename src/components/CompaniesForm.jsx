@@ -1,33 +1,11 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-
 import { Button, Stack } from '@mui/material';
 
 import { getCompanies, getSubscribedCompanies } from '../api/companies';
-import { subtractArrays } from '../utils';
+import useForm from '../hooks/useForm';
 import TransferList from './TransferList';
 
 const CompaniesForm = () => {
-  const { current } = useRef({});
-
-  const [items, setItems] = useState([]);
-  const [selectedInitial, setSelectedInitial] = useState([]);
-
-  const handleChange = useCallback(
-    (values) => {
-      current.values = values;
-    },
-    [current]
-  );
-
-  useEffect(() => {
-    Promise.all([getCompanies(), getSubscribedCompanies()]).then(
-      ([companies, subscribedCompanies]) => {
-        const filteredCompanies = subtractArrays(companies, subscribedCompanies, 'id');
-        setItems(filteredCompanies);
-        setSelectedInitial(subscribedCompanies);
-      }
-    );
-  }, []);
+  const { handleChange, items, subscribedItems } = useForm(getCompanies, getSubscribedCompanies);
 
   return (
     <form>
@@ -35,7 +13,7 @@ const CompaniesForm = () => {
         items={items}
         leftLabel="Available Companies"
         rightLabel="Selected Companies"
-        selectedInitial={selectedInitial}
+        selectedInitial={subscribedItems}
         onRightChange={handleChange}
       />
       <Stack
