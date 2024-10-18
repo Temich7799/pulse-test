@@ -20,30 +20,52 @@ const TransferList = ({
     itemsRight: selectedInitial,
   });
 
-  const { current } = useRef({ selectedLeft: null, selectedRight: null });
+  const { current } = useRef({ selectedLeft: [], selectedRight: [] });
 
-  const selectRight = useCallback(
+  const selectLeft = useCallback(
     (e, item) => {
-      current.selectedRight = item;
+      current.selectedRight = [];
+      current.selectedLeft = [item];
     },
     [current]
   );
 
-  const selectLeft = useCallback(
+  const selectRight = useCallback(
     (e, item) => {
-      current.selectedLeft = item;
+      current.selectedLeft = [];
+      current.selectedRight = [item];
+    },
+    [current]
+  );
+
+  const multipleSelectLeft = useCallback(
+    (e, item) => {
+      current.selectedRight = [];
+      if (!current.selectedLeft.includes(item)) {
+        current.selectedLeft.push(item);
+      }
+    },
+    [current]
+  );
+
+  const multipleSelectRight = useCallback(
+    (e, item) => {
+      current.selectedLeft = [];
+      if (!current.selectedRight.includes(item)) {
+        current.selectedRight.push(item);
+      }
     },
     [current]
   );
 
   const handleMoveLeft = useCallback(() => {
-    current.selectedRight && moveLeft(current.selectedRight);
-    current.selectedRight = null;
+    moveLeft(current.selectedRight);
+    current.selectedRight = [];
   }, [moveLeft, current]);
 
   const handleMoveRight = useCallback(() => {
-    current.selectedLeft && moveRight(current.selectedLeft);
-    current.selectedLeft = null;
+    moveRight(current.selectedLeft);
+    current.selectedLeft = [];
   }, [moveRight, current]);
 
   const onDoubleLeftClick = useCallback(
@@ -79,6 +101,7 @@ const TransferList = ({
           placeholder="Type Name"
           onClick={selectLeft}
           onDoubleClick={onDoubleLeftClick}
+          onMultipleClick={multipleSelectLeft}
         />
       </Grid>
       <Grid size={2}>
@@ -107,6 +130,7 @@ const TransferList = ({
           placeholder="Type Name"
           onClick={selectRight}
           onDoubleClick={onDoubleRightClick}
+          onMultipleClick={multipleSelectRight}
         />
       </Grid>
     </Grid>

@@ -4,6 +4,10 @@ const excludeItem = (items, value) => {
   return items.filter((item) => item !== value);
 };
 
+const excludeItems = (items, values) => {
+  return values.reduce((acc, value) => excludeItem(acc, value), items);
+};
+
 const useTransfer = ({ itemsLeft: leftItemsInitial, itemsRight: rightItemsInitial }) => {
   const [leftItems, setLeftItems] = useState([]);
   const [rightItems, setRightItems] = useState([]);
@@ -14,18 +18,18 @@ const useTransfer = ({ itemsLeft: leftItemsInitial, itemsRight: rightItemsInitia
   }, []);
 
   const moveLeft = useCallback(
-    (value) => {
-      const itemsRight = excludeItem(rightItems, value);
-      const itemsLeft = [...leftItems, value];
+    (values) => {
+      const itemsRight = excludeItems(rightItems, values);
+      const itemsLeft = [...leftItems, ...values];
       handleTransfer(itemsLeft, itemsRight);
     },
     [handleTransfer, leftItems, rightItems]
   );
 
   const moveRight = useCallback(
-    (value) => {
-      const itemsLeft = excludeItem(leftItems, value);
-      const itemsRight = [...rightItems, value];
+    (values) => {
+      const itemsLeft = excludeItems(leftItems, values);
+      const itemsRight = [...rightItems, ...values];
       handleTransfer(itemsLeft, itemsRight);
     },
     [handleTransfer, rightItems, leftItems]
