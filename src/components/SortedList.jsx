@@ -2,6 +2,8 @@ import { useCallback, useState } from 'react';
 
 import { List, ListItemButton, Paper, Stack, TextField, Typography } from '@mui/material';
 
+import { sortArray } from '../utils';
+
 const SortedList = ({ items = [], onClick, placeholder }) => {
   const [search, setSearch] = useState('');
 
@@ -14,8 +16,10 @@ const SortedList = ({ items = [], onClick, placeholder }) => {
     [onClick]
   );
 
+  const sortedItems = sortArray(items, 'id');
+
   const regex = new RegExp(search, 'i');
-  const filteredItems = items.filter(({ name }) => regex.test(name));
+  const filteredItems = sortedItems.filter(({ name }) => regex.test(name));
 
   const handleSearch = useCallback((e) => {
     setSearch(e.target.value);
