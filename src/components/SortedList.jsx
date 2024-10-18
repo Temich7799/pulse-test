@@ -4,7 +4,7 @@ import { List, ListItemButton, Paper, Stack, TextField, Typography } from '@mui/
 
 import { sortArray } from '../utils';
 
-const SortedList = ({ items = [], onClick, placeholder }) => {
+const SortedList = ({ items = [], onClick, onDoubleClick, placeholder }) => {
   const [search, setSearch] = useState('');
 
   const onClickHandler = useCallback(
@@ -14,6 +14,15 @@ const SortedList = ({ items = [], onClick, placeholder }) => {
       }
     },
     [onClick]
+  );
+
+  const onDoubleClickHandler = useCallback(
+    (e, item) => {
+      if (onDoubleClick) {
+        onDoubleClick(e, item);
+      }
+    },
+    [onDoubleClick]
   );
 
   const sortedItems = sortArray(items, 'id');
@@ -39,6 +48,7 @@ const SortedList = ({ items = [], onClick, placeholder }) => {
           <ListItemButton
             key={item.id}
             onClick={(e) => onClickHandler(e, item)}
+            onDoubleClick={(e) => onDoubleClickHandler(e, item)}
           >
             {item.name}
           </ListItemButton>
@@ -48,7 +58,7 @@ const SortedList = ({ items = [], onClick, placeholder }) => {
   );
 };
 
-const WrappedSortedList = ({ items = [], label, onClick, placeholder }) => {
+const WrappedSortedList = ({ items = [], label, onClick, onDoubleClick, placeholder }) => {
   return (
     <Paper>
       <Stack spacing={1}>
@@ -63,6 +73,7 @@ const WrappedSortedList = ({ items = [], label, onClick, placeholder }) => {
           items={items}
           placeholder={placeholder}
           onClick={onClick}
+          onDoubleClick={onDoubleClick}
         />
       </Stack>
     </Paper>

@@ -22,13 +22,19 @@ const TransferList = ({
 
   const { current } = useRef({ selectedLeft: null, selectedRight: null });
 
-  const selectRight = (e, item) => {
-    current.selectedRight = item;
-  };
+  const selectRight = useCallback(
+    (e, item) => {
+      current.selectedRight = item;
+    },
+    [current]
+  );
 
-  const selectLeft = (e, item) => {
-    current.selectedLeft = item;
-  };
+  const selectLeft = useCallback(
+    (e, item) => {
+      current.selectedLeft = item;
+    },
+    [current]
+  );
 
   const handleMoveLeft = useCallback(() => {
     current.selectedRight && moveLeft(current.selectedRight);
@@ -39,6 +45,22 @@ const TransferList = ({
     current.selectedLeft && moveRight(current.selectedLeft);
     current.selectedLeft = null;
   }, [moveRight, current]);
+
+  const onDoubleLeftClick = useCallback(
+    (e, item) => {
+      selectLeft(e, item);
+      handleMoveRight();
+    },
+    [handleMoveRight, selectLeft]
+  );
+
+  const onDoubleRightClick = useCallback(
+    (e, item) => {
+      selectRight(e, item);
+      handleMoveLeft();
+    },
+    [handleMoveLeft, selectRight]
+  );
 
   useEffect(() => {
     leftItems.length && onLeftChange && onLeftChange(leftItems);
@@ -56,6 +78,7 @@ const TransferList = ({
           label={leftLabel}
           placeholder="Type Name"
           onClick={selectLeft}
+          onDoubleClick={onDoubleLeftClick}
         />
       </Grid>
       <Grid size={2}>
@@ -83,6 +106,7 @@ const TransferList = ({
           label={rightLabel}
           placeholder="Type Name"
           onClick={selectRight}
+          onDoubleClick={onDoubleRightClick}
         />
       </Grid>
     </Grid>
