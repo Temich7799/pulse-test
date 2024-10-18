@@ -1,11 +1,15 @@
 import { Button, Stack } from '@mui/material';
 
-import { getCompanies, getSubscribedCompanies } from '../api/companies';
+import { getCompanies, getSubscribedCompanies, updateCompanySubscriptions } from '../api/companies';
 import useForm from '../hooks/useForm';
 import TransferList from './TransferList';
 
 const CompaniesForm = () => {
-  const { handleChange, items, subscribedItems } = useForm(getCompanies, getSubscribedCompanies);
+  const { handleSubmit, items, setSubscribedItems, subscribedItems } = useForm(
+    getCompanies,
+    getSubscribedCompanies,
+    updateCompanySubscriptions
+  );
 
   return (
     <form>
@@ -14,7 +18,7 @@ const CompaniesForm = () => {
         leftLabel="Available Companies"
         rightLabel="Selected Companies"
         selectedInitial={subscribedItems}
-        onRightChange={handleChange}
+        onRightChange={setSubscribedItems}
       />
       <Stack
         alignItems="center"
@@ -22,7 +26,12 @@ const CompaniesForm = () => {
         justifyContent="end"
         py={2}
       >
-        <Button variant="contained">Save</Button>
+        <Button
+          variant="contained"
+          onClick={handleSubmit}
+        >
+          Save
+        </Button>
       </Stack>
     </form>
   );

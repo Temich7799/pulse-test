@@ -1,11 +1,15 @@
 import { Button, Stack } from '@mui/material';
 
-import { getMines, getSubscribedMines } from '../api/mines';
+import { getMines, getSubscribedMines, updateMineSubscriptions } from '../api/mines';
 import useForm from '../hooks/useForm';
 import TransferList from './TransferList';
 
 const MinesForm = () => {
-  const { handleChange, items, subscribedItems } = useForm(getMines, getSubscribedMines);
+  const { handleSubmit, items, setSubscribedItems, subscribedItems } = useForm(
+    getMines,
+    getSubscribedMines,
+    updateMineSubscriptions
+  );
 
   return (
     <form>
@@ -14,7 +18,7 @@ const MinesForm = () => {
         leftLabel="Available Mines"
         rightLabel="Selected Mines"
         selectedInitial={subscribedItems}
-        onRightChange={handleChange}
+        onRightChange={setSubscribedItems}
       />
       <Stack
         alignItems="center"
@@ -22,7 +26,12 @@ const MinesForm = () => {
         justifyContent="end"
         py={2}
       >
-        <Button variant="contained">Save</Button>
+        <Button
+          variant="contained"
+          onClick={handleSubmit}
+        >
+          Save
+        </Button>
       </Stack>
     </form>
   );
