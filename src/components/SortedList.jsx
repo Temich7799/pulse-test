@@ -1,10 +1,25 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { List, ListItemButton, Paper, Stack, TextField, Typography } from '@mui/material';
+import {
+  List,
+  ListItemButton,
+  ListItemText,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 
 import { sortArray } from '../utils';
 
-const SortedList = ({ items = [], onClick, onDoubleClick, onMultipleClick, placeholder }) => {
+const SortedList = ({
+  items = [],
+  label,
+  onClick,
+  onDoubleClick,
+  onMultipleClick,
+  placeholder,
+}) => {
   const [search, setSearch] = useState('');
 
   const { current } = useRef({ isCtrlDown: false });
@@ -60,26 +75,56 @@ const SortedList = ({ items = [], onClick, onDoubleClick, onMultipleClick, place
   }, [onMultipleClick, current]);
 
   return (
-    <>
-      <TextField
-        fullWidth
-        label={placeholder}
-        value={search}
-        variant="outlined"
-        onChange={handleSearch}
-      />
-      <List sx={{ height: '150px', overflowY: 'scroll' }}>
-        {filteredItems.map((item) => (
-          <ListItemButton
-            key={item.id}
-            onClick={(e) => onClickHandler(e, item)}
-            onDoubleClick={(e) => onDoubleClickHandler(e, item)}
-          >
-            {item.name}
-          </ListItemButton>
-        ))}
-      </List>
-    </>
+    <Paper sx={{ border: '2px solid #000', padding: 2 }}>
+      <Stack spacing={2}>
+        <Typography
+          component="h3"
+          sx={{ borderBottom: '2px solid #000', fontWeight: 'bold' }}
+          variant="h6"
+        >
+          {label}
+        </Typography>
+        <TextField
+          fullWidth
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                border: 'none',
+              },
+            },
+            border: '2px solid #000',
+            borderRadius: 0,
+          }}
+          placeholder={placeholder}
+          value={search}
+          variant="outlined"
+          onChange={handleSearch}
+        />
+        <List sx={{ border: '2px solid #000', height: '150px', overflowY: 'scroll', padding: 0 }}>
+          {filteredItems.map((item) => (
+            <ListItemButton
+              sx={{
+                '&:hover': {
+                  backgroundColor: '#f0f0f0',
+                },
+                border: 'none',
+                borderBottom: '1px solid #000',
+                borderRadius: 0,
+                padding: '10px 16px',
+              }}
+              key={item.id}
+              onClick={(e) => onClickHandler(e, item)}
+              onDoubleClick={(e) => onDoubleClickHandler(e, item)}
+            >
+              <ListItemText
+                primary={item.name}
+                sx={{ textAlign: 'center' }}
+              />
+            </ListItemButton>
+          ))}
+        </List>
+      </Stack>
+    </Paper>
   );
 };
 
@@ -94,15 +139,9 @@ const WrappedSortedList = ({
   return (
     <Paper>
       <Stack spacing={1}>
-        <Typography
-          component="h3"
-          p={2}
-          variant="h6"
-        >
-          {label}
-        </Typography>
         <SortedList
           items={items}
+          label={label}
           placeholder={placeholder}
           onClick={onClick}
           onDoubleClick={onDoubleClick}
