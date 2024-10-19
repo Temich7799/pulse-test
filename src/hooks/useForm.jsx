@@ -19,13 +19,6 @@ const useForm = (getItems, getSubscribedItems, updateSubscribedItems) => {
     [current]
   );
 
-  const handleSubmit = useCallback(async () => {
-    if (current.values) {
-      const body = formatRequest(current.values);
-      await updateSubscribedItems(body);
-    }
-  }, [updateSubscribedItems, current.values]);
-
   const fetchItems = useCallback(
     async () =>
       Promise.all([getItems(), getSubscribedItems()]).then(([items, subscribedItems]) => {
@@ -35,6 +28,13 @@ const useForm = (getItems, getSubscribedItems, updateSubscribedItems) => {
       }),
     [getItems, getSubscribedItems]
   );
+
+  const handleSubmit = useCallback(async () => {
+    if (current.values) {
+      const body = formatRequest(current.values);
+      updateSubscribedItems(body).then(fetchItems);
+    }
+  }, [updateSubscribedItems, current.values, fetchItems]);
 
   useEffect(() => {
     fetchItems();
