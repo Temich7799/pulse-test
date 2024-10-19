@@ -3,6 +3,7 @@ import path from 'node:path';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+  base: '/pulse-test/',
   plugins: [react()],
   preview: {
     port: 3000,

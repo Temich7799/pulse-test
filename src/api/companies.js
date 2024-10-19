@@ -2,7 +2,7 @@ import { api } from '.';
 
 export const getCompanies = async () => {
   try {
-    const response = await api.get('/companies');
+    const response = await api.get('/companies/');
     return response.data;
   } catch (error) {
     console.error('Error fetching companies:', error);
@@ -12,7 +12,7 @@ export const getCompanies = async () => {
 
 export const getSubscribedCompanies = async () => {
   try {
-    const response = await api.get('/subscriptions/companies');
+    const response = await api.get('/subscriptions/companies/');
     return response.data;
   } catch (error) {
     console.error('Error fetching subscribed companies:', error);
@@ -22,7 +22,7 @@ export const getSubscribedCompanies = async () => {
 
 export const updateCompanySubscriptions = async (companyIds) => {
   try {
-    const response = await api.post('/subscriptions/companies', {
+    const response = await api.post('/subscriptions/companies/', {
       company_ids: companyIds,
     });
     return response.data;
