@@ -10,7 +10,7 @@ const useForm = (getItems, getSubscribedItems, updateSubscribedItems) => {
   const [items, setItems] = useState([]);
   const [subscribedItems, setSubscribedItems] = useState([]);
 
-  const { current } = useRef({});
+  const { current } = useRef({ values: [] });
 
   const handleChange = useCallback(
     (values) => {

@@ -81,8 +81,8 @@ const TransferList = ({
   );
 
   useEffect(() => {
-    leftItems.length && onLeftChange && onLeftChange(leftItems);
-    rightItems.length && onRightChange && onRightChange(rightItems);
+    onLeftChange && onLeftChange(leftItems);
+    onRightChange && onRightChange(rightItems);
   }, [leftItems, onLeftChange, onRightChange, rightItems]);
 
   return (
