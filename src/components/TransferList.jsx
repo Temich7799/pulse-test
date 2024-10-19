@@ -24,7 +24,6 @@ const TransferList = ({
 
   const selectLeft = useCallback(
     (e, item) => {
-      current.selectedRight = [];
       current.selectedLeft = [item];
     },
     [current]
@@ -32,7 +31,6 @@ const TransferList = ({
 
   const selectRight = useCallback(
     (e, item) => {
-      current.selectedLeft = [];
       current.selectedRight = [item];
     },
     [current]
@@ -40,7 +38,6 @@ const TransferList = ({
 
   const multipleSelectLeft = useCallback(
     (e, item) => {
-      current.selectedRight = [];
       if (!current.selectedLeft.includes(item)) {
         current.selectedLeft.push(item);
       }
@@ -50,7 +47,6 @@ const TransferList = ({
 
   const multipleSelectRight = useCallback(
     (e, item) => {
-      current.selectedLeft = [];
       if (!current.selectedRight.includes(item)) {
         current.selectedRight.push(item);
       }
@@ -59,12 +55,12 @@ const TransferList = ({
   );
 
   const handleMoveLeft = useCallback(() => {
-    moveLeft(current.selectedRight);
+    current.selectedRight.length && moveLeft(current.selectedRight);
     current.selectedRight = [];
   }, [moveLeft, current]);
 
   const handleMoveRight = useCallback(() => {
-    moveRight(current.selectedLeft);
+    current.selectedLeft.length && moveRight(current.selectedLeft);
     current.selectedLeft = [];
   }, [moveRight, current]);
 
